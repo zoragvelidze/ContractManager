@@ -1,0 +1,641 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceApplication
+  Name="LightSwitchServiceApplication" xmlns="http://schemas.microsoft.com/LightSwitch/2010/xaml/model">
+  <ServiceApplication.Attributes>
+    <Partial />
+  </ServiceApplication.Attributes>
+  <EntityType
+    Name="Project">
+    <EntityType.Attributes>
+      <CreatedModifiedPropertiesEnabled />
+    </EntityType.Attributes>
+    <EntityType.Methods>
+      <EntityMethod
+        Name="Delete">
+        <EntityMethod.Attributes>
+          <Generated />
+        </EntityMethod.Attributes>
+      </EntityMethod>
+    </EntityType.Methods>
+    <EntityType.Properties>
+      <KeyProperty
+        Name="Id"
+        PropertyType=":Int32">
+        <KeyProperty.Attributes>
+          <Required />
+          <NotSearchable />
+        </KeyProperty.Attributes>
+      </KeyProperty>
+      <NavigationProperty
+        Name="Client"
+        Association="Project_Client"
+        FromEnd="Project"
+        ToEnd="Client" />
+      <EntityProperty
+        Name="ContractNumber"
+        PropertyType=":String">
+        <EntityProperty.Attributes>
+          <Required />
+          <MaxLength
+            Value="255" />
+        </EntityProperty.Attributes>
+      </EntityProperty>
+      <EntityProperty
+        Name="Description"
+        PropertyType=":String">
+        <EntityProperty.Attributes>
+          <Required />
+          <MaxLength
+            Value="255" />
+        </EntityProperty.Attributes>
+      </EntityProperty>
+      <EntityProperty
+        Name="Comment"
+        PropertyType=":String?">
+        <EntityProperty.Attributes>
+          <MaxLength
+            Value="255" />
+        </EntityProperty.Attributes>
+      </EntityProperty>
+      <NavigationProperty
+        Name="ProjectStages"
+        Association="ProjectStage_Project"
+        FromEnd="Project"
+        ToEnd="ProjectStage" />
+      <NavigationProperty
+        Name="ActualPayments"
+        Association="ActualPayment_Project"
+        FromEnd="Project"
+        ToEnd="ActualPayment" />
+      <NavigationProperty
+        Name="PaymentSchedules"
+        Association="PaymentSchedule_Project"
+        FromEnd="Project"
+        ToEnd="PaymentSchedule" />
+      <NavigationProperty
+        Name="ProjectFilesCollection"
+        Association="ProjectFiles_Project"
+        FromEnd="Project"
+        ToEnd="ProjectFiles" />
+      <NavigationProperty
+        Name="Alerts"
+        Association="Alert_Project"
+        FromEnd="Project"
+        ToEnd="Alert" />
+      <EntityProperty
+        Name="AlertType"
+        PropertyType=":Int32?">
+        <EntityProperty.Attributes>
+          <NotSearchable />
+        </EntityProperty.Attributes>
+      </EntityProperty>
+      <NavigationProperty
+        Name="Currency"
+        Association="Project_Currency"
+        FromEnd="Project"
+        ToEnd="Currency" />
+      <EntityProperty
+        Name="CaseNumber"
+        PropertyType=":String?">
+        <EntityProperty.Attributes>
+          <MaxLength
+            Value="255" />
+          <DisplayName
+            Value="საქმის ნომერი" />
+        </EntityProperty.Attributes>
+      </EntityProperty>
+      <NavigationProperty
+        Name="DebtReportDatas"
+        Association="DebtReportData_Project"
+        FromEnd="Project"
+        ToEnd="DebtReportData" />
+      <NavigationProperty
+        Name="ProfitReportDatas"
+        Association="ProfitReportData_Project"
+        FromEnd="Project"
+        ToEnd="ProfitReportData" />
+      <NavigationProperty
+        Name="Builder"
+        Association="Project_Employee"
+        FromEnd="Project"
+        ToEnd="Employee">
+        <NavigationProperty.Attributes>
+          <DisplayName
+            Value="სამუშაოთა მწარმოებელი" />
+        </NavigationProperty.Attributes>
+      </NavigationProperty>
+      <NavigationProperty
+        Name="Executor"
+        Association="Project_Employee1"
+        FromEnd="Project"
+        ToEnd="Employee">
+        <NavigationProperty.Attributes>
+          <DisplayName
+            Value="შემსრულებელი" />
+        </NavigationProperty.Attributes>
+      </NavigationProperty>
+      <EntityProperty
+        Name="CreatedBy"
+        IsReadOnly="True"
+        PropertyType=":Person?">
+        <EntityProperty.Attributes>
+          <Generated />
+          <NotSearchable />
+          <MaxLength
+            Value="255" />
+        </EntityProperty.Attributes>
+      </EntityProperty>
+      <EntityProperty
+        Name="Created"
+        IsReadOnly="True"
+        PropertyType=":DateTimeOffset?">
+        <EntityProperty.Attributes>
+          <Generated />
+          <NotSearchable />
+        </EntityProperty.Attributes>
+      </EntityProperty>
+      <EntityProperty
+        Name="ModifiedBy"
+        IsReadOnly="True"
+        PropertyType=":Person?">
+        <EntityProperty.Attributes>
+          <Generated />
+          <NotSearchable />
+          <MaxLength
+            Value="255" />
+        </EntityProperty.Attributes>
+      </EntityProperty>
+      <EntityProperty
+        Name="Modified"
+        IsReadOnly="True"
+        PropertyType=":DateTimeOffset?">
+        <EntityProperty.Attributes>
+          <Generated />
+          <NotSearchable />
+        </EntityProperty.Attributes>
+      </EntityProperty>
+      <EntityProperty
+        Name="RowVersion"
+        PropertyType=":RowVersion">
+        <EntityProperty.Attributes>
+          <Hidden />
+          <UseForConcurrency />
+          <Generated />
+          <NotSearchable />
+        </EntityProperty.Attributes>
+      </EntityProperty>
+    </EntityType.Properties>
+  </EntityType>
+  <EntityContainer
+    Name="ApplicationData">
+    <EntityContainer.Attributes>
+      <Partial />
+    </EntityContainer.Attributes>
+    <EntitySet
+      Name="Projects"
+      CanDelete="True"
+      CanInsert="True"
+      CanUpdate="True"
+      EntityType="Project" />
+    <QueryOperation
+      Name="Projects_Single"
+      ReturnType="Project">
+      <QueryOperation.Attributes>
+        <Generated />
+        <Description
+          Value="Returns the entity whose identity is specified by the parameter(s)." />
+      </QueryOperation.Attributes>
+      <QueryOperation.FilterExpression>
+        <QueryFilterExpressionTree>
+          <BinaryExpression
+            NodeType="Equal">
+            <BinaryExpression.Left>
+              <ChainExpression>
+                <MemberExpression
+                  Member="Id" />
+              </ChainExpression>
+            </BinaryExpression.Left>
+            <BinaryExpression.Right>
+              <ParameterExpression
+                Parameter="Id" />
+            </BinaryExpression.Right>
+          </BinaryExpression>
+        </QueryFilterExpressionTree>
+      </QueryOperation.FilterExpression>
+      <QueryOperation.Source>
+        <QuerySourceExpressionTree>
+          <MemberExpression
+            Member="Projects" />
+        </QuerySourceExpressionTree>
+      </QueryOperation.Source>
+      <QueryOperationParameter
+        Name="Id"
+        ParameterType=":Int32?">
+        <QueryOperationParameter.Attributes>
+          <Description
+            Value="The value of the 'Id' key property of the entity to retrieve." />
+        </QueryOperationParameter.Attributes>
+      </QueryOperationParameter>
+    </QueryOperation>
+    <QueryOperation
+      Name="Projects_SingleOrDefault"
+      ReturnType="Project">
+      <QueryOperation.Attributes>
+        <Generated />
+        <Description
+          Value="Returns the entity whose identity is specified by the parameter(s) or null if no such entity exists." />
+      </QueryOperation.Attributes>
+      <QueryOperation.FilterExpression>
+        <QueryFilterExpressionTree>
+          <BinaryExpression
+            NodeType="Equal">
+            <BinaryExpression.Left>
+              <ChainExpression>
+                <MemberExpression
+                  Member="Id" />
+              </ChainExpression>
+            </BinaryExpression.Left>
+            <BinaryExpression.Right>
+              <ParameterExpression
+                Parameter="Id" />
+            </BinaryExpression.Right>
+          </BinaryExpression>
+        </QueryFilterExpressionTree>
+      </QueryOperation.FilterExpression>
+      <QueryOperation.Source>
+        <QuerySourceExpressionTree>
+          <MemberExpression
+            Member="Projects" />
+        </QuerySourceExpressionTree>
+      </QueryOperation.Source>
+      <QueryOperationParameter
+        Name="Id"
+        ParameterType=":Int32?">
+        <QueryOperationParameter.Attributes>
+          <Description
+            Value="The value of the 'Id' key property of the entity to retrieve." />
+        </QueryOperationParameter.Attributes>
+      </QueryOperationParameter>
+    </QueryOperation>
+    <AssociationSet
+      Name="ProjectStage_Projects"
+      Association="ProjectStage_Project">
+      <AssociationSetEnd
+        Name="ProjectStage"
+        EntitySet="ProjectStages" />
+      <AssociationSetEnd
+        Name="Project"
+        EntitySet="Projects" />
+    </AssociationSet>
+    <AssociationSet
+      Name="ActualPayment_Projects"
+      Association="ActualPayment_Project">
+      <AssociationSetEnd
+        Name="ActualPayment"
+        EntitySet="ActualPayments" />
+      <AssociationSetEnd
+        Name="Project"
+        EntitySet="Projects" />
+    </AssociationSet>
+    <AssociationSet
+      Name="PaymentSchedule_Projects"
+      Association="PaymentSchedule_Project">
+      <AssociationSetEnd
+        Name="PaymentSchedule"
+        EntitySet="PaymentSchedules" />
+      <AssociationSetEnd
+        Name="Project"
+        EntitySet="Projects" />
+    </AssociationSet>
+    <AssociationSet
+      Name="ProjectFiles_Projects"
+      Association="ProjectFiles_Project">
+      <AssociationSetEnd
+        Name="ProjectFiles"
+        EntitySet="ProjectFilesSet" />
+      <AssociationSetEnd
+        Name="Project"
+        EntitySet="Projects" />
+    </AssociationSet>
+    <AssociationSet
+      Name="Alert_Projects"
+      Association="Alert_Project">
+      <AssociationSetEnd
+        Name="Alert"
+        EntitySet="Alerts" />
+      <AssociationSetEnd
+        Name="Project"
+        EntitySet="Projects" />
+    </AssociationSet>
+    <AssociationSet
+      Name="DebtReportData_Projects"
+      Association="DebtReportData_Project">
+      <AssociationSetEnd
+        Name="DebtReportData"
+        EntitySet="DebtReportDatas" />
+      <AssociationSetEnd
+        Name="Project"
+        EntitySet="Projects" />
+    </AssociationSet>
+    <AssociationSet
+      Name="ProfitReportData_Projects"
+      Association="ProfitReportData_Project">
+      <AssociationSetEnd
+        Name="ProfitReportData"
+        EntitySet="ProfitReportDatas" />
+      <AssociationSetEnd
+        Name="Project"
+        EntitySet="Projects" />
+    </AssociationSet>
+  </EntityContainer>
+  <DataService
+    Name="ApplicationDataMapping">
+    <DataService.Attributes>
+      <Partial />
+    </DataService.Attributes>
+    <EntitySetMapping
+      EntitySet="Projects">
+      <EntitySetMapping.Attributes>
+        <SsdlForeignKeyProperty
+          Name="Project_Client"
+          Nullable="False"
+          Type="int" />
+        <SsdlForeignKeyProperty
+          Name="Project_Currency"
+          Nullable="False"
+          Type="int" />
+        <SsdlForeignKeyProperty
+          Name="Project_Currency1"
+          Nullable="False"
+          Type="int" />
+        <SsdlForeignKeyProperty
+          Name="Project_Employee"
+          Nullable="True"
+          Type="int" />
+        <SsdlForeignKeyProperty
+          Name="Project_Employee1"
+          Nullable="True"
+          Type="int" />
+      </EntitySetMapping.Attributes>
+    </EntitySetMapping>
+    <AssociationSetMapping
+      AssociationSet="ProjectStage_Projects">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="ProjectStage_Projects" />
+        <SsdlAssociationSetEnd
+          End="ApplicationData/Members[ProjectStage_Projects]/Members[ProjectStage]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="ProjectStage_Project" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="ApplicationData/Members[ProjectStage_Projects]/Members[Project]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="Id" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="ActualPayment_Projects">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="ActualPayment_Projects" />
+        <SsdlAssociationSetEnd
+          End="ApplicationData/Members[ActualPayment_Projects]/Members[ActualPayment]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="ActualPayment_Project" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="ApplicationData/Members[ActualPayment_Projects]/Members[Project]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="Id" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="PaymentSchedule_Projects">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="PaymentSchedule_Projects" />
+        <SsdlAssociationSetEnd
+          End="ApplicationData/Members[PaymentSchedule_Projects]/Members[PaymentSchedule]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="PaymentSchedule_Project" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="ApplicationData/Members[PaymentSchedule_Projects]/Members[Project]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="Id" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="ProjectFiles_Projects">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="ProjectFiles_Projects" />
+        <SsdlAssociationSetEnd
+          End="ApplicationData/Members[ProjectFiles_Projects]/Members[ProjectFiles]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="ProjectFiles_Project" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="ApplicationData/Members[ProjectFiles_Projects]/Members[Project]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="Id" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="Alert_Projects">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="Alert_Projects" />
+        <SsdlAssociationSetEnd
+          End="ApplicationData/Members[Alert_Projects]/Members[Alert]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="Alert_Project" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="ApplicationData/Members[Alert_Projects]/Members[Project]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="Id" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="DebtReportData_Projects">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="DebtReportData_Projects" />
+        <SsdlAssociationSetEnd
+          End="ApplicationData/Members[DebtReportData_Projects]/Members[DebtReportData]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="DebtReportData_Project" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="ApplicationData/Members[DebtReportData_Projects]/Members[Project]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="Id" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="ProfitReportData_Projects">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="ProfitReportData_Projects" />
+        <SsdlAssociationSetEnd
+          End="ApplicationData/Members[ProfitReportData_Projects]/Members[ProfitReportData]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="ProfitReportData_Project" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="ApplicationData/Members[ProfitReportData_Projects]/Members[Project]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="Id" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+  </DataService>
+  <Association
+    Name="ProjectStage_Project">
+    <AssociationEnd
+      Name="ProjectStage"
+      Multiplicity="Many"
+      EntityType="ProjectStage" />
+    <AssociationEnd
+      Name="Project"
+      Multiplicity="One"
+      EntityType="Project">
+      <AssociationEnd.Attributes>
+        <DeleteRule
+          Action="Restrict" />
+      </AssociationEnd.Attributes>
+    </AssociationEnd>
+  </Association>
+  <Association
+    Name="ActualPayment_Project">
+    <AssociationEnd
+      Name="ActualPayment"
+      Multiplicity="Many"
+      EntityType="ActualPayment" />
+    <AssociationEnd
+      Name="Project"
+      Multiplicity="One"
+      EntityType="Project">
+      <AssociationEnd.Attributes>
+        <DeleteRule
+          Action="Restrict" />
+      </AssociationEnd.Attributes>
+    </AssociationEnd>
+  </Association>
+  <Association
+    Name="PaymentSchedule_Project">
+    <AssociationEnd
+      Name="PaymentSchedule"
+      Multiplicity="Many"
+      EntityType="PaymentSchedule" />
+    <AssociationEnd
+      Name="Project"
+      Multiplicity="One"
+      EntityType="Project">
+      <AssociationEnd.Attributes>
+        <DeleteRule
+          Action="Restrict" />
+      </AssociationEnd.Attributes>
+    </AssociationEnd>
+  </Association>
+  <Association
+    Name="ProjectFiles_Project">
+    <AssociationEnd
+      Name="ProjectFiles"
+      Multiplicity="Many"
+      EntityType="ProjectFiles" />
+    <AssociationEnd
+      Name="Project"
+      Multiplicity="One"
+      EntityType="Project">
+      <AssociationEnd.Attributes>
+        <DeleteRule
+          Action="Restrict" />
+      </AssociationEnd.Attributes>
+    </AssociationEnd>
+  </Association>
+  <Association
+    Name="Alert_Project">
+    <AssociationEnd
+      Name="Alert"
+      Multiplicity="Many"
+      EntityType="Alert" />
+    <AssociationEnd
+      Name="Project"
+      Multiplicity="One"
+      EntityType="Project">
+      <AssociationEnd.Attributes>
+        <DeleteRule
+          Action="Restrict" />
+      </AssociationEnd.Attributes>
+    </AssociationEnd>
+  </Association>
+  <Association
+    Name="DebtReportData_Project">
+    <AssociationEnd
+      Name="DebtReportData"
+      Multiplicity="Many"
+      EntityType="DebtReportData" />
+    <AssociationEnd
+      Name="Project"
+      Multiplicity="One"
+      EntityType="Project">
+      <AssociationEnd.Attributes>
+        <DeleteRule
+          Action="Restrict" />
+      </AssociationEnd.Attributes>
+    </AssociationEnd>
+  </Association>
+  <Association
+    Name="ProfitReportData_Project">
+    <AssociationEnd
+      Name="ProfitReportData"
+      Multiplicity="Many"
+      EntityType="ProfitReportData" />
+    <AssociationEnd
+      Name="Project"
+      Multiplicity="One"
+      EntityType="Project">
+      <AssociationEnd.Attributes>
+        <DeleteRule
+          Action="Restrict" />
+      </AssociationEnd.Attributes>
+    </AssociationEnd>
+  </Association>
+</ServiceApplication>
