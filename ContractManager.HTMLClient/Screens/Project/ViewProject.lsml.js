@@ -183,3 +183,16 @@ myapp.ViewProject.Acceptance_execute = function (screen) {
     screen.closePopup();
 
 };
+myapp.ViewProject.DeleteProject_execute = function (screen) {
+    // Write code here.
+    if (confirm("ნამდვილად გინდათ პროექტის წაშლა?")) {
+        screen.Project.deleteEntity();
+        return myapp.activeDataWorkspace.ApplicationData.saveChanges().then(function success() {
+            // If success.
+            window.history.back();
+        }, function fail(e) {
+            throw e;
+        });
+    }
+
+};
