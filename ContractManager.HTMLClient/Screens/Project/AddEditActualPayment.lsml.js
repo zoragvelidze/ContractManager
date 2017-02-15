@@ -60,22 +60,24 @@ myapp.AddEditActualPayment.beforeApplyChanges = function (screen) {
 myapp.AddEditActualPayment.PaymentDate_postRender = function (element, contentItem) {
     // Write code here.
     contentItem.dataBind("value", function (value) {
-        if (value && contentItem.screen.ActualPayment.Currency && contentItem.screen.gelId && contentItem.screen.ActualPayment.Project.Currency.Id != contentItem.screen.gelId) {
-            myapp.activeDataWorkspace.ApplicationData.CurrencyRates_GetCurrencyRate(contentItem.screen.ActualPayment.Project.Currency.Id, value).execute().then(
-                function (results) {
-                    var curRate = results.results[0].Rate;
-                    if (contentItem.screen.ActualPayment.CurrencyRate != curRate)
-                        contentItem.screen.ActualPayment.CurrencyRate = curRate;
-                },
+        if (contentItem.screen.gelId) {
+            if (value && contentItem.screen.gelId && contentItem.screen.ActualPayment.Project.Currency.Id != contentItem.screen.gelId) {
+                myapp.activeDataWorkspace.ApplicationData.CurrencyRates_GetCurrencyRate(contentItem.screen.ActualPayment.Project.Currency.Id, value).execute().then(
+                    function (results) {
+                        var curRate = results.results[0].Rate;
+                        if (contentItem.screen.ActualPayment.CurrencyRate != curRate)
+                            contentItem.screen.ActualPayment.CurrencyRate = curRate;
+                    },
 
-                function (error) {
-                    if (contentItem.screen.ActualPayment.CurrencyRate != 1)
-                        contentItem.screen.ActualPayment.CurrencyRate = 1;
-                }
-            )
+                    function (error) {
+                        if (contentItem.screen.ActualPayment.CurrencyRate != 1)
+                            contentItem.screen.ActualPayment.CurrencyRate = 1;
+                    }
+                )
+            }
+            else if (contentItem.screen.ActualPayment.CurrencyRate != 1)
+                contentItem.screen.ActualPayment.CurrencyRate = 1;
         }
-        else if (contentItem.screen.ActualPayment.CurrencyRate != 1)
-            contentItem.screen.ActualPayment.CurrencyRate = 1;
     });
 
 };
@@ -117,34 +119,37 @@ myapp.AddEditActualPayment.created = function (screen) {
 };
 myapp.AddEditActualPayment.ActualPayment_PaidGel_postRender = function (element, contentItem) {
     // Write code here.
+    
     contentItem.dataBind("value", function (value) {
-        if (value && contentItem.screen.ActualPayment.CurrencyRate != 0 && contentItem.screen.gelId && contentItem.screen.ActualPayment.Project.Currency.Id != contentItem.screen.gelId) {
-            var paid = Math.round(value / contentItem.screen.ActualPayment.CurrencyRate * 100) / 100;
-            if (contentItem.screen.ActualPayment.Paid != paid)
-                contentItem.screen.ActualPayment.Paid = paid;
-        }
-        else if (contentItem.screen.ActualPayment.Paid != value)
-            contentItem.screen.ActualPayment.Paid = value;
-    });
-
-};
-myapp.AddEditActualPayment.ActualPayment_CurrencyRate_postRender = function (element, contentItem) {
-    // Write code here.
-    contentItem.dataBind("value", function (value) {
-        if (value && value != 0 && contentItem.screen.gelId && contentItem.screen.ActualPayment.Project.Currency.Id != contentItem.screen.gelId) {
-            if (contentItem.screen.ActualPayment.PaidGel) {
-                var paid = Math.round(contentItem.screen.ActualPayment.PaidGel / value * 100) / 100;
+        if (contentItem.screen.gelId) {
+            if (value && contentItem.screen.ActualPayment.CurrencyRate != 0 && contentItem.screen.gelId && contentItem.screen.ActualPayment.Project.Currency.Id != contentItem.screen.gelId) {
+                var paid = Math.round(value / contentItem.screen.ActualPayment.CurrencyRate * 100) / 100;
                 if (contentItem.screen.ActualPayment.Paid != paid)
                     contentItem.screen.ActualPayment.Paid = paid;
             }
-            else {
-                contentItem.screen.ActualPayment.Paid = 0;
+            else if (contentItem.screen.ActualPayment.Paid != value)
+                contentItem.screen.ActualPayment.Paid = value;
+        }
+    });
+};
+
+myapp.AddEditActualPayment.ActualPayment_CurrencyRate_postRender = function (element, contentItem) {
+    // Write code here.
+    contentItem.dataBind("value", function (value) {
+        if (contentItem.screen.gelId) {
+            if (value && value != 0 && contentItem.screen.gelId && contentItem.screen.ActualPayment.Project.Currency.Id != contentItem.screen.gelId) {
+                if (contentItem.screen.ActualPayment.PaidGel) {
+                    var paid = Math.round(contentItem.screen.ActualPayment.PaidGel / value * 100) / 100;
+                    if (contentItem.screen.ActualPayment.Paid != paid)
+                        contentItem.screen.ActualPayment.Paid = paid;
+                }
+                else {
+                    contentItem.screen.ActualPayment.Paid = 0;
+                }
+            }
+            else if (contentItem.screen.ActualPayment.Paid != contentItem.screen.ActualPayment.PaidGel) {
+                contentItem.screen.ActualPayment.Paid = contentItem.screen.ActualPayment.PaidGel;
             }
         }
-        else if (contentItem.screen.ActualPayment.Paid != contentItem.screen.ActualPayment.PaidGel) {
-            contentItem.screen.ActualPayment.Paid = contentItem.screen.ActualPayment.PaidGel;
-        }
-            
     });
-
 };
