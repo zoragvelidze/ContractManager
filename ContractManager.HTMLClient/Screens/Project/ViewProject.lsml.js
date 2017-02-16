@@ -196,3 +196,29 @@ myapp.ViewProject.DeleteProject_execute = function (screen) {
     }
 
 };
+myapp.ViewProject.deleteSalary_execute = function (screen) {
+    screen.Salaries.deleteSelected();
+    return myapp.activeDataWorkspace.ApplicationData.saveChanges().then(function success() {
+        // If success.
+    }, function fail(e) {
+        throw e;
+    });
+};
+myapp.ViewProject.deleteSalary_canExecute = function (screen) {
+    // Write code here.
+    return screen.Salaries.selectedItem !== null;
+};
+myapp.ViewProject.deleteMaterial_canExecute = function (screen) {
+    // Write code here.
+    return screen.Materials.selectedItem !== null;
+};
+myapp.ViewProject.deleteMaterial_execute = function (screen) {
+    // Write code here.
+    screen.Materials.deleteSelected();
+    return myapp.activeDataWorkspace.ApplicationData.saveChanges().then(function success() {
+        // If success.
+    }, function fail(e) {
+        throw e;
+    });
+
+};

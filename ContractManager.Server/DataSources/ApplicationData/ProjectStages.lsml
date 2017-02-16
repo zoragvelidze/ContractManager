@@ -90,16 +90,6 @@
         Association="ProjectStage_Project"
         FromEnd="ProjectStage"
         ToEnd="Project" />
-      <NavigationProperty
-        Name="Materials"
-        Association="Material_ProjectStage"
-        FromEnd="ProjectStage"
-        ToEnd="Material" />
-      <NavigationProperty
-        Name="Salaries"
-        Association="Salary_ProjectStage"
-        FromEnd="ProjectStage"
-        ToEnd="Salary" />
       <EntityProperty
         Name="FullDescription"
         PropertyType=":String?">
@@ -290,26 +280,6 @@
         </QueryOperationParameter.Attributes>
       </QueryOperationParameter>
     </QueryOperation>
-    <AssociationSet
-      Name="Material_ProjectStages"
-      Association="Material_ProjectStage">
-      <AssociationSetEnd
-        Name="Material"
-        EntitySet="Materials" />
-      <AssociationSetEnd
-        Name="ProjectStage"
-        EntitySet="ProjectStages" />
-    </AssociationSet>
-    <AssociationSet
-      Name="Salary_ProjectStages"
-      Association="Salary_ProjectStage">
-      <AssociationSetEnd
-        Name="Salary"
-        EntitySet="Salaries" />
-      <AssociationSetEnd
-        Name="ProjectStage"
-        EntitySet="ProjectStages" />
-    </AssociationSet>
   </EntityContainer>
   <DataService
     Name="ApplicationDataMapping">
@@ -325,79 +295,5 @@
           Type="int" />
       </EntitySetMapping.Attributes>
     </EntitySetMapping>
-    <AssociationSetMapping
-      AssociationSet="Material_ProjectStages">
-      <AssociationSetMapping.Attributes>
-        <SsdlAssociationSet
-          Name="Material_ProjectStages" />
-        <SsdlAssociationSetEnd
-          End="ApplicationData/Members[Material_ProjectStages]/Members[Material]">
-          <SsdlAssociationSetEnd.Attributes>
-            <SsdlPropertyRef
-              Name="Material_ProjectStage" />
-          </SsdlAssociationSetEnd.Attributes>
-        </SsdlAssociationSetEnd>
-        <SsdlAssociationSetEnd
-          End="ApplicationData/Members[Material_ProjectStages]/Members[ProjectStage]">
-          <SsdlAssociationSetEnd.Attributes>
-            <SsdlPropertyRef
-              Name="Id" />
-          </SsdlAssociationSetEnd.Attributes>
-        </SsdlAssociationSetEnd>
-      </AssociationSetMapping.Attributes>
-    </AssociationSetMapping>
-    <AssociationSetMapping
-      AssociationSet="Salary_ProjectStages">
-      <AssociationSetMapping.Attributes>
-        <SsdlAssociationSet
-          Name="Salary_ProjectStages" />
-        <SsdlAssociationSetEnd
-          End="ApplicationData/Members[Salary_ProjectStages]/Members[Salary]">
-          <SsdlAssociationSetEnd.Attributes>
-            <SsdlPropertyRef
-              Name="Salary_ProjectStage" />
-          </SsdlAssociationSetEnd.Attributes>
-        </SsdlAssociationSetEnd>
-        <SsdlAssociationSetEnd
-          End="ApplicationData/Members[Salary_ProjectStages]/Members[ProjectStage]">
-          <SsdlAssociationSetEnd.Attributes>
-            <SsdlPropertyRef
-              Name="Id" />
-          </SsdlAssociationSetEnd.Attributes>
-        </SsdlAssociationSetEnd>
-      </AssociationSetMapping.Attributes>
-    </AssociationSetMapping>
   </DataService>
-  <Association
-    Name="Material_ProjectStage">
-    <AssociationEnd
-      Name="Material"
-      Multiplicity="Many"
-      EntityType="Material" />
-    <AssociationEnd
-      Name="ProjectStage"
-      Multiplicity="One"
-      EntityType="ProjectStage">
-      <AssociationEnd.Attributes>
-        <DeleteRule
-          Action="Restrict" />
-      </AssociationEnd.Attributes>
-    </AssociationEnd>
-  </Association>
-  <Association
-    Name="Salary_ProjectStage">
-    <AssociationEnd
-      Name="Salary"
-      Multiplicity="Many"
-      EntityType="Salary" />
-    <AssociationEnd
-      Name="ProjectStage"
-      Multiplicity="One"
-      EntityType="ProjectStage">
-      <AssociationEnd.Attributes>
-        <DeleteRule
-          Action="Restrict" />
-      </AssociationEnd.Attributes>
-    </AssociationEnd>
-  </Association>
 </ServiceApplication>

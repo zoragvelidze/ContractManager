@@ -310,62 +310,6 @@
                   </ContentItem.PropertySources>
                 </ContentItem>
                 <ContentItem
-                  Name="Project"
-                  Kind="Details"
-                  DataType="Project">
-                  <ContentItem.Attributes>
-                    <DisplayName
-                      Value="პროექტი" />
-                  </ContentItem.Attributes>
-                  <ContentItem.DataSource>
-                    <ScreenExpressionTree>
-                      <ChainExpression>
-                        <MemberExpression
-                          Member="Salary/Properties[ProjectStage]" />
-                        <MemberExpression
-                          Member="Project" />
-                      </ChainExpression>
-                    </ScreenExpressionTree>
-                  </ContentItem.DataSource>
-                  <ContentItem
-                    Name="Project1"
-                    Kind="Details"
-                    DataType="Project">
-                    <ContentItem.DataSource>
-                      <ScreenExpressionTree>
-                        <ChainExpression />
-                      </ScreenExpressionTree>
-                    </ContentItem.DataSource>
-                  </ContentItem>
-                </ContentItem>
-                <ContentItem
-                  Name="ProjectStage"
-                  Kind="Details"
-                  DataType="ProjectStage">
-                  <ContentItem.Attributes>
-                    <DisplayName
-                      Value="პროექტის ეტაპი" />
-                  </ContentItem.Attributes>
-                  <ContentItem.DataSource>
-                    <ScreenExpressionTree>
-                      <ChainExpression>
-                        <MemberExpression
-                          Member="Salary/Properties[ProjectStage]" />
-                      </ChainExpression>
-                    </ScreenExpressionTree>
-                  </ContentItem.DataSource>
-                  <ContentItem
-                    Name="ProjectStage1"
-                    Kind="Details"
-                    DataType="ProjectStage">
-                    <ContentItem.DataSource>
-                      <ScreenExpressionTree>
-                        <ChainExpression />
-                      </ScreenExpressionTree>
-                    </ContentItem.DataSource>
-                  </ContentItem>
-                </ContentItem>
-                <ContentItem
                   Name="Total"
                   Kind="Value"
                   DataType=":Decimal">

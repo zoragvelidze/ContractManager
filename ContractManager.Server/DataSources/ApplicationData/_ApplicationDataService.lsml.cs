@@ -696,10 +696,10 @@ namespace LightSwitchApplication
             DateTime endDate = entity.EndDate;
 
             var reportQuery = from Project pr in Projects
-                              from ProjectStage ps in pr.ProjectStages.Where(ps=>ps.Project.Id == pr.Id)
+                              //from ProjectStage ps in pr.ProjectStages.Where(ps=>ps.Project.Id == pr.Id)
                               let TotalAccrual = pr.ProjectStages.Where(ps => ps.Closed && ps.CloseDate <= endDate && ps.CloseDate >= startDate).Sum(ps=>ps.StageTotal)
-                              let TotalSalary = ps.Salaries.Where(ps => ps.PaymentDate <= endDate && ps.PaymentDate >= startDate).Sum(ps => ps.Total)
-                              let TotalOtherExp = ps.Materials.Where(ps => ps.ExpenseDate <= endDate && ps.ExpenseDate >= startDate).Sum(ps => ps.Total)
+                              let TotalSalary = pr.Salaries.Where(ps => ps.PaymentDate <= endDate && ps.PaymentDate >= startDate).Sum(ps => ps.Total)
+                              let TotalOtherExp = pr.Materials.Where(ps => ps.ExpenseDate <= endDate && ps.ExpenseDate >= startDate).Sum(ps => ps.Total)
                               select new { Project = pr, TotalAccrual, TotalSalary, TotalOtherExp };
 
 

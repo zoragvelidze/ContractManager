@@ -54,10 +54,10 @@
         </EntityProperty.Attributes>
       </EntityProperty>
       <NavigationProperty
-        Name="ProjectStage"
-        Association="Material_ProjectStage"
+        Name="Project"
+        Association="Material_Project"
         FromEnd="Material"
-        ToEnd="ProjectStage" />
+        ToEnd="Project" />
       <EntityProperty
         Name="CreatedBy"
         IsReadOnly="True"
@@ -212,6 +212,10 @@
       <EntitySetMapping.Attributes>
         <SsdlForeignKeyProperty
           Name="Material_ProjectStage"
+          Nullable="False"
+          Type="int" />
+        <SsdlForeignKeyProperty
+          Name="Material_Project"
           Nullable="False"
           Type="int" />
       </EntitySetMapping.Attributes>

@@ -134,6 +134,16 @@
             Value="შემსრულებელი" />
         </NavigationProperty.Attributes>
       </NavigationProperty>
+      <NavigationProperty
+        Name="Salaries"
+        Association="Salary_Project"
+        FromEnd="Project"
+        ToEnd="Salary" />
+      <NavigationProperty
+        Name="Materials"
+        Association="Material_Project"
+        FromEnd="Project"
+        ToEnd="Material" />
       <EntityProperty
         Name="CreatedBy"
         IsReadOnly="True"
@@ -347,6 +357,26 @@
         Name="Project"
         EntitySet="Projects" />
     </AssociationSet>
+    <AssociationSet
+      Name="Salary_Projects"
+      Association="Salary_Project">
+      <AssociationSetEnd
+        Name="Salary"
+        EntitySet="Salaries" />
+      <AssociationSetEnd
+        Name="Project"
+        EntitySet="Projects" />
+    </AssociationSet>
+    <AssociationSet
+      Name="Material_Projects"
+      Association="Material_Project">
+      <AssociationSetEnd
+        Name="Material"
+        EntitySet="Materials" />
+      <AssociationSetEnd
+        Name="Project"
+        EntitySet="Projects" />
+    </AssociationSet>
   </EntityContainer>
   <DataService
     Name="ApplicationDataMapping">
@@ -525,6 +555,48 @@
         </SsdlAssociationSetEnd>
       </AssociationSetMapping.Attributes>
     </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="Salary_Projects">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="Salary_Projects" />
+        <SsdlAssociationSetEnd
+          End="ApplicationData/Members[Salary_Projects]/Members[Salary]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="Salary_Project" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="ApplicationData/Members[Salary_Projects]/Members[Project]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="Id" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="Material_Projects">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="Material_Projects" />
+        <SsdlAssociationSetEnd
+          End="ApplicationData/Members[Material_Projects]/Members[Material]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="Material_Project" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="ApplicationData/Members[Material_Projects]/Members[Project]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="Id" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
   </DataService>
   <Association
     Name="ProjectStage_Project">
@@ -628,6 +700,38 @@
       Name="ProfitReportData"
       Multiplicity="Many"
       EntityType="ProfitReportData" />
+    <AssociationEnd
+      Name="Project"
+      Multiplicity="One"
+      EntityType="Project">
+      <AssociationEnd.Attributes>
+        <DeleteRule
+          Action="Restrict" />
+      </AssociationEnd.Attributes>
+    </AssociationEnd>
+  </Association>
+  <Association
+    Name="Salary_Project">
+    <AssociationEnd
+      Name="Salary"
+      Multiplicity="Many"
+      EntityType="Salary" />
+    <AssociationEnd
+      Name="Project"
+      Multiplicity="One"
+      EntityType="Project">
+      <AssociationEnd.Attributes>
+        <DeleteRule
+          Action="Restrict" />
+      </AssociationEnd.Attributes>
+    </AssociationEnd>
+  </Association>
+  <Association
+    Name="Material_Project">
+    <AssociationEnd
+      Name="Material"
+      Multiplicity="Many"
+      EntityType="Material" />
     <AssociationEnd
       Name="Project"
       Multiplicity="One"

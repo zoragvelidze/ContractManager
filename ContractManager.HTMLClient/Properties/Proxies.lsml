@@ -28,12 +28,6 @@
         Target="ServiceInterface:ProjectStage_Project" />
     </Association.Attributes>
   </Association>
-  <Association>
-    <Association.Attributes>
-      <Proxy
-        Target="ServiceInterface:Material_ProjectStage" />
-    </Association.Attributes>
-  </Association>
   <EntityType>
     <EntityType.Attributes>
       <Proxy
@@ -44,12 +38,6 @@
     <Association.Attributes>
       <Proxy
         Target="ServiceInterface:Salary_Employee" />
-    </Association.Attributes>
-  </Association>
-  <Association>
-    <Association.Attributes>
-      <Proxy
-        Target="ServiceInterface:Salary_ProjectStage" />
     </Association.Attributes>
   </Association>
   <EntityType>
@@ -194,6 +182,18 @@
     <Association.Attributes>
       <Proxy
         Target="ServiceInterface:Project_Employee1" />
+    </Association.Attributes>
+  </Association>
+  <Association>
+    <Association.Attributes>
+      <Proxy
+        Target="ServiceInterface:Salary_Project" />
+    </Association.Attributes>
+  </Association>
+  <Association>
+    <Association.Attributes>
+      <Proxy
+        Target="ServiceInterface:Material_Project" />
     </Association.Attributes>
   </Association>
 </Application>
