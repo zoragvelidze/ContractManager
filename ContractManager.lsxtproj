@@ -22,7 +22,7 @@
     <ApplicationServerType>IIS</ApplicationServerType>
     <AuthenticationType>Forms</AuthenticationType>
     <ApplicationName>ContractManager</ApplicationName>
-    <AssemblyVersion>1.0.37.0</AssemblyVersion>
+    <AssemblyVersion>1.0.42.0</AssemblyVersion>
     <ServiceDefinitionFile>ServiceDefinition.csdef</ServiceDefinitionFile>
     <ServiceConfigurationFile>ServiceConfiguration.cscfg</ServiceConfigurationFile>
     <SqlExpressInstanceName>(LocalDB)\MSSQLLocalDB</SqlExpressInstanceName>
@@ -30,12 +30,12 @@
     <AdministratorUserName />
     <AllowUntrustedCertificate>False</AllowUntrustedCertificate>
     <DeployDatabase>True</DeployDatabase>
-    <AddAdministrator>True</AddAdministrator>
+    <AddAdministrator>False</AddAdministrator>
     <BootstrapperComponentsUrl />
     <DefaultInstallLocation>ContractManager</DefaultInstallLocation>
     <DeploySchema>True</DeploySchema>
-    <PublishLocation>E:\ContractManager</PublishLocation>
-    <PublishNewDatabase>True</PublishNewDatabase>
+    <PublishLocation>C:\ContractManager\</PublishLocation>
+    <PublishNewDatabase>False</PublishNewDatabase>
     <PublishUrl />
     <PublishSite>Default Web Site/ContractManager</PublishSite>
     <RemotePublish>False</RemotePublish>

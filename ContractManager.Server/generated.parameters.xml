@@ -21,16 +21,6 @@
     <parameterEntry kind="XmlFile" scope="web.config" match="//connectionStrings/add[@name='_IntrinsicData']/@connectionString" />
   </parameter>
   <parameter name="ContractManager_IisWebApplication" description="IIS Web Application content location" defaultValue="Default Web Site/ContractManager" tags="IisApp">
-    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\ziko\\documents\\visual\ studio\ 2015\\Projects\\ContractManagerF\\ContractManager\\bin\\Release\\app\.publish\\$" />
-  </parameter>
-  <parameter name="Application Administrator User Name" description="The user name of the user that will define users and roles in the application." defaultValue="" tags="applicationSettings">
-    <parameterEntry kind="XmlFile" scope="web.config" match="//appSettings/add[@key='Microsoft.LightSwitch.Admin.UserName' and @value='AdministratorUserName']/@value" />
-  </parameter>
-  <parameter name="Application Administrator Full Name" description="The full name of the user that will define users and roles in the application." defaultValue="" tags="applicationSettings">
-    <parameterEntry kind="XmlFile" scope="web.config" match="//appSettings/add[@key='Microsoft.LightSwitch.Admin.FullName' and @value='AdministratorFullName']/@value" />
-  </parameter>
-  <parameter name="Application Administrator Password" description="The password of the user that will define users and roles in the application." defaultValue="" tags="Password,New,applicationSettings">
-    <parameterValidation kind="RegularExpression" validationString="^(?=.{7,})(?=(.*[\W\p{Pc}].*){1,})" />
-    <parameterEntry kind="XmlFile" scope="web.config" match="//appSettings/add[@key='Microsoft.LightSwitch.Admin.Password' and @value='AdministratorPassword']/@value" />
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\Administrator\\Source\\Repos\\ContractManager\\bin\\Release\\app\.publish\\$" />
   </parameter>
 </parameters>
