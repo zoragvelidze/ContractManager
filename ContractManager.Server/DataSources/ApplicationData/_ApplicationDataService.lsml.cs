@@ -280,6 +280,7 @@ namespace LightSwitchApplication
 
         partial void PrintDocuments_Inserting(PrintDocument entity)
         {
+
             string wordDocument;
 
             DataWorkspace workspace = new DataWorkspace();
@@ -697,10 +698,10 @@ namespace LightSwitchApplication
 
             var reportQuery = from Project pr in Projects
                               //from ProjectStage ps in pr.ProjectStages.Where(ps=>ps.Project.Id == pr.Id)
-                              let TotalAccrual = pr.ProjectStages.Where(ps => ps.Closed && ps.CloseDate <= endDate && ps.CloseDate >= startDate).Sum(ps=>ps.StageTotal)
+                              let TotalAccrual = pr.ProjectStages.Where(ps => ps.Closed && ps.CloseDate <= endDate && ps.CloseDate >= startDate).Sum(ps=>ps.TotalGel)
                               let TotalSalary = pr.Salaries.Where(ps => ps.PaymentDate <= endDate && ps.PaymentDate >= startDate).Sum(ps => ps.Total)
                               let TotalOtherExp = pr.Materials.Where(ps => ps.ExpenseDate <= endDate && ps.ExpenseDate >= startDate).Sum(ps => ps.Total)
-                              select new { Project = pr, TotalAccrual, TotalSalary, TotalOtherExp };
+                              select new { Project = pr, TotalAccrual, TotalSalary, TotalOtherExp};
 
 
             //reportQuery.GroupBy()
@@ -952,6 +953,285 @@ namespace LightSwitchApplication
                             cell.CellValue = new CellValue(debtReportRow.DebtGel.ToString().ToString());
                             cell.DataType = new EnumValue<CellValues>(CellValues.Number);
                             ///////////////////////////////////////////////////////////////////////
+
+                        }
+
+                        // Save the new worksheet.
+                        worksheetPart.Worksheet.Save();
+                    }
+
+                    entity.ExcelData = mem.ToArray();
+                }
+
+            }
+            else if (entity.TableName == "ProfitReport")
+            {
+                string excelDocument;
+
+                excelDocument = HttpContext.Current.Server.MapPath(@"~\bin\ContractManager.Server\Templates\ExcelTemplate.xlsx");
+
+                Byte[] byteArray = File.ReadAllBytes(excelDocument);
+
+                using (MemoryStream mem = new MemoryStream())
+                {
+                    mem.Write(byteArray, 0, (int)byteArray.Length);
+
+                    using (SpreadsheetDocument spreadSheet = SpreadsheetDocument.Open(mem, true))
+                    {
+                        // Get the SharedStringTablePart. If it does not exist, create a new one.
+                        SharedStringTablePart shareStringPart;
+                        if (spreadSheet.WorkbookPart.GetPartsOfType<SharedStringTablePart>().Count() > 0)
+                        {
+                            shareStringPart = spreadSheet.WorkbookPart.GetPartsOfType<SharedStringTablePart>().First();
+                        }
+                        else
+                        {
+                            shareStringPart = spreadSheet.WorkbookPart.AddNewPart<SharedStringTablePart>();
+                        }
+
+
+                        // Insert a new worksheet.
+                        //WorksheetPart worksheetPart = InsertWorksheet(spreadSheet.WorkbookPart);
+                        WorksheetPart worksheetPart = spreadSheet.WorkbookPart.WorksheetParts.First();
+
+                        // Insert the text into the SharedStringTablePart.
+                        int index = InsertSharedStringItem("პროექტი", shareStringPart);
+
+                        // Insert cell A1 into the new worksheet.
+                        Cell cell = InsertCellInWorksheet("A", 1, worksheetPart);
+
+                        // Set the value of cell A1.
+                        cell.CellValue = new CellValue(index.ToString());
+                        cell.DataType = new EnumValue<CellValues>(CellValues.SharedString);
+                        ///////////////////////////////////////////////////////////////////////
+
+                        // Insert the text into the SharedStringTablePart.
+                        index = InsertSharedStringItem("შემოსავალი", shareStringPart);
+
+                        // Insert cell A1 into the new worksheet.
+                        cell = InsertCellInWorksheet("B", 1, worksheetPart);
+
+                        // Set the value of cell A1.
+                        cell.CellValue = new CellValue(index.ToString());
+                        cell.DataType = new EnumValue<CellValues>(CellValues.SharedString);
+                        ///////////////////////////////////////////////////////////////////////
+
+                        // Insert the text into the SharedStringTablePart.
+                        index = InsertSharedStringItem("ხელფასის ხარჯი", shareStringPart);
+
+                        // Insert cell A1 into the new worksheet.
+                        cell = InsertCellInWorksheet("C", 1, worksheetPart);
+
+                        // Set the value of cell A1.
+                        cell.CellValue = new CellValue(index.ToString());
+                        cell.DataType = new EnumValue<CellValues>(CellValues.SharedString);
+                        ///////////////////////////////////////////////////////////////////////
+
+                        // Insert the text into the SharedStringTablePart.
+                        index = InsertSharedStringItem("სხვა ხარჯი", shareStringPart);
+
+                        // Insert cell A1 into the new worksheet.
+                        cell = InsertCellInWorksheet("D", 1, worksheetPart);
+
+                        // Set the value of cell A1.
+                        cell.CellValue = new CellValue(index.ToString());
+                        cell.DataType = new EnumValue<CellValues>(CellValues.SharedString);
+                        ///////////////////////////////////////////////////////////////////////
+
+                        // Insert the text into the SharedStringTablePart.
+                        index = InsertSharedStringItem("მოგება", shareStringPart);
+
+                        // Insert cell A1 into the new worksheet.
+                        cell = InsertCellInWorksheet("E", 1, worksheetPart);
+
+                        // Set the value of cell A1.
+                        cell.CellValue = new CellValue(index.ToString());
+                        cell.DataType = new EnumValue<CellValues>(CellValues.SharedString);
+                        ///////////////////////////////////////////////////////////////////////
+
+
+                        uint i = 1;
+
+                        foreach (ProfitReportData profitReportRow in ProfitReportDatas)
+                        {
+                            i++;
+
+                            // Insert the text into the SharedStringTablePart.
+                            index = InsertSharedStringItem(profitReportRow.Project.ContractNumber, shareStringPart);
+
+                            // Insert cell A1 into the new worksheet.
+                            cell = InsertCellInWorksheet("A", i, worksheetPart);
+
+                            // Set the value of cell A1.
+                            cell.CellValue = new CellValue(index.ToString());
+                            cell.DataType = new EnumValue<CellValues>(CellValues.SharedString);
+                            ///////////////////////////////////////////////////////////////////////
+
+                            // Insert cell A1 into the new worksheet.
+                            cell = InsertCellInWorksheet("B", i, worksheetPart);
+
+                            // Set the value of cell A1.
+                            cell.CellValue = new CellValue(profitReportRow.Revenue.ToString());
+                            cell.DataType = new EnumValue<CellValues>(CellValues.Number);
+                            ///////////////////////////////////////////////////////////////////////
+
+                            // Insert cell A1 into the new worksheet.
+                            cell = InsertCellInWorksheet("C", i, worksheetPart);
+
+                            // Set the value of cell A1.
+                            cell.CellValue = new CellValue(profitReportRow.Salary.ToString());
+                            cell.DataType = new EnumValue<CellValues>(CellValues.Number);
+                            ///////////////////////////////////////////////////////////////////////
+
+                            // Insert cell A1 into the new worksheet.
+                            cell = InsertCellInWorksheet("D", i, worksheetPart);
+
+                            // Set the value of cell A1.
+                            cell.CellValue = new CellValue(profitReportRow.Other.ToString());
+                            cell.DataType = new EnumValue<CellValues>(CellValues.Number);
+                            ///////////////////////////////////////////////////////////////////////
+
+                            // Insert cell A1 into the new worksheet.
+                            cell = InsertCellInWorksheet("E", i, worksheetPart);
+
+                            // Set the value of cell A1.
+                            cell.CellValue = new CellValue(profitReportRow.Profit.ToString());
+                            cell.DataType = new EnumValue<CellValues>(CellValues.Number);
+                            ///////////////////////////////////////////////////////////////////////
+
+                        }
+
+                        // Save the new worksheet.
+                        worksheetPart.Worksheet.Save();
+                    }
+
+                    entity.ExcelData = mem.ToArray();
+                }
+
+            }
+            else if (entity.TableName == "ProjectList")
+            {
+                string excelDocument;
+
+                excelDocument = HttpContext.Current.Server.MapPath(@"~\bin\ContractManager.Server\Templates\ExcelTemplate.xlsx");
+
+                Byte[] byteArray = File.ReadAllBytes(excelDocument);
+
+                using (MemoryStream mem = new MemoryStream())
+                {
+                    mem.Write(byteArray, 0, (int)byteArray.Length);
+
+                    using (SpreadsheetDocument spreadSheet = SpreadsheetDocument.Open(mem, true))
+                    {
+                        // Get the SharedStringTablePart. If it does not exist, create a new one.
+                        SharedStringTablePart shareStringPart;
+                        if (spreadSheet.WorkbookPart.GetPartsOfType<SharedStringTablePart>().Count() > 0)
+                        {
+                            shareStringPart = spreadSheet.WorkbookPart.GetPartsOfType<SharedStringTablePart>().First();
+                        }
+                        else
+                        {
+                            shareStringPart = spreadSheet.WorkbookPart.AddNewPart<SharedStringTablePart>();
+                        }
+
+
+                        // Insert a new worksheet.
+                        //WorksheetPart worksheetPart = InsertWorksheet(spreadSheet.WorkbookPart);
+                        WorksheetPart worksheetPart = spreadSheet.WorkbookPart.WorksheetParts.First();
+
+                        // Insert the text into the SharedStringTablePart.
+                        int index = InsertSharedStringItem("პროექტი", shareStringPart);
+
+                        // Insert cell A1 into the new worksheet.
+                        Cell cell = InsertCellInWorksheet("A", 1, worksheetPart);
+
+                        // Set the value of cell A1.
+                        cell.CellValue = new CellValue(index.ToString());
+                        cell.DataType = new EnumValue<CellValues>(CellValues.SharedString);
+                        ///////////////////////////////////////////////////////////////////////
+
+                        // Insert the text into the SharedStringTablePart.
+                        index = InsertSharedStringItem("კლიენტი", shareStringPart);
+
+                        // Insert cell A1 into the new worksheet.
+                        cell = InsertCellInWorksheet("B", 1, worksheetPart);
+
+                        // Set the value of cell A1.
+                        cell.CellValue = new CellValue(index.ToString());
+                        cell.DataType = new EnumValue<CellValues>(CellValues.SharedString);
+                        ///////////////////////////////////////////////////////////////////////
+
+                        // Insert the text into the SharedStringTablePart.
+                        index = InsertSharedStringItem("დასახელება", shareStringPart);
+
+                        // Insert cell A1 into the new worksheet.
+                        cell = InsertCellInWorksheet("C", 1, worksheetPart);
+
+                        // Set the value of cell A1.
+                        cell.CellValue = new CellValue(index.ToString());
+                        cell.DataType = new EnumValue<CellValues>(CellValues.SharedString);
+                        ///////////////////////////////////////////////////////////////////////
+
+                        // Insert the text into the SharedStringTablePart.
+                        index = InsertSharedStringItem("ვალუტა", shareStringPart);
+
+                        // Insert cell A1 into the new worksheet.
+                        cell = InsertCellInWorksheet("D", 1, worksheetPart);
+
+                        // Set the value of cell A1.
+                        cell.CellValue = new CellValue(index.ToString());
+                        cell.DataType = new EnumValue<CellValues>(CellValues.SharedString);
+                        ///////////////////////////////////////////////////////////////////////
+
+
+                        uint i = 1;
+
+                        foreach (Project projct in Projects)
+                        {
+                            i++;
+
+                            // Insert the text into the SharedStringTablePart.
+                            index = InsertSharedStringItem(projct.ContractNumber, shareStringPart);
+
+                            // Insert cell A1 into the new worksheet.
+                            cell = InsertCellInWorksheet("A", i, worksheetPart);
+
+                            // Set the value of cell A1.
+                            cell.CellValue = new CellValue(index.ToString());
+                            cell.DataType = new EnumValue<CellValues>(CellValues.SharedString);
+                            ///////////////////////////////////////////////////////////////////////
+
+                            // Insert the text into the SharedStringTablePart.
+                            index = InsertSharedStringItem(projct.Client.Name, shareStringPart);
+
+                            // Insert cell A1 into the new worksheet.
+                            cell = InsertCellInWorksheet("B", i, worksheetPart);
+
+                            // Set the value of cell A1.
+                            cell.CellValue = new CellValue(index.ToString());
+                            cell.DataType = new EnumValue<CellValues>(CellValues.SharedString);
+                            ///////////////////////////////////////////////////////////////////////
+
+                            // Insert the text into the SharedStringTablePart.
+                            index = InsertSharedStringItem(projct.Description, shareStringPart);
+
+                            // Insert cell A1 into the new worksheet.
+                            cell = InsertCellInWorksheet("C", i, worksheetPart);
+
+                            // Set the value of cell A1.
+                            cell.CellValue = new CellValue(index.ToString());
+                            cell.DataType = new EnumValue<CellValues>(CellValues.SharedString);
+                            ///////////////////////////////////////////////////////////////////////
+
+                            // Insert the text into the SharedStringTablePart.
+                            index = InsertSharedStringItem(projct.Currency.Name, shareStringPart);
+
+                            // Insert cell A1 into the new worksheet.
+                            cell = InsertCellInWorksheet("D", i, worksheetPart);
+
+                            // Set the value of cell A1.
+                            cell.CellValue = new CellValue(index.ToString());
+                            cell.DataType = new EnumValue<CellValues>(CellValues.SharedString);
 
                         }
 

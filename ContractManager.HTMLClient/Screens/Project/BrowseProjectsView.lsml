@@ -416,6 +416,35 @@
                   </ControlPropertySource>
                 </ContentItem.PropertySources>
               </ContentItem>
+              <ContentItem
+                Name="exportExcel"
+                Kind="Command">
+                <ContentItem.Attributes>
+                  <DisplayName
+                    Value="Excel" />
+                </ContentItem.Attributes>
+                <ContentItem.PropertySources>
+                  <ControlPropertySource
+                    Property="Microsoft.LightSwitch.MobileWeb:RootControl/Properties[Tap]">
+                    <ScreenExpressionTree>
+                      <ChainExpression>
+                        <CallExpression
+                          Target="BrowseProjectsView/Methods[exportExcel]" />
+                      </ChainExpression>
+                    </ScreenExpressionTree>
+                  </ControlPropertySource>
+                  <ControlPropertySource
+                    Property="Microsoft.LightSwitch.MobileWeb:RootCommand/Properties[Icon]">
+                    <ScreenExpressionTree>
+                      <ChainExpression>
+                        <ConstantExpression
+                          Value="msls-list"
+                          ResultType=":String" />
+                      </ChainExpression>
+                    </ScreenExpressionTree>
+                  </ControlPropertySource>
+                </ContentItem.PropertySources>
+              </ContentItem>
             </ContentItem.CommandItems>
           </ContentItem>
           <ContentItem.PropertySources>
@@ -527,6 +556,8 @@
         Name="ProfitReport" />
       <ScreenMethod
         Name="ProfitReportRun" />
+      <ScreenMethod
+        Name="exportExcel" />
     </Screen.Methods>
     <Screen.Properties>
       <ScreenCollectionProperty

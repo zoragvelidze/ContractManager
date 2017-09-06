@@ -92,6 +92,7 @@
                 </ContentItem>
                 <ContentItem
                   Name="Currency"
+                  IsHidden="True"
                   Kind="Details"
                   DataType="Currency">
                   <ContentItem.Attributes>
@@ -252,6 +253,31 @@
                   </ControlPropertySource>
                 </ContentItem.PropertySources>
               </ContentItem>
+              <ContentItem
+                Name="Excel"
+                Kind="Command">
+                <ContentItem.PropertySources>
+                  <ControlPropertySource
+                    Property="Microsoft.LightSwitch.MobileWeb:RootControl/Properties[Tap]">
+                    <ScreenExpressionTree>
+                      <ChainExpression>
+                        <CallExpression
+                          Target="BrowseProfitReportDatas/Methods[Excel]" />
+                      </ChainExpression>
+                    </ScreenExpressionTree>
+                  </ControlPropertySource>
+                  <ControlPropertySource
+                    Property="Microsoft.LightSwitch.MobileWeb:RootCommand/Properties[Icon]">
+                    <ScreenExpressionTree>
+                      <ChainExpression>
+                        <ConstantExpression
+                          Value="msls-list"
+                          ResultType=":String" />
+                      </ChainExpression>
+                    </ScreenExpressionTree>
+                  </ControlPropertySource>
+                </ContentItem.PropertySources>
+              </ContentItem>
             </ContentItem.CommandItems>
           </ContentItem>
           <ContentItem.PropertySources>
@@ -296,6 +322,8 @@
           Name="dialogName"
           ParameterType=":String" />
       </ScreenMethod>
+      <ScreenMethod
+        Name="Excel" />
     </Screen.Methods>
     <Screen.Properties>
       <ScreenCollectionProperty
