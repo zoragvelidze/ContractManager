@@ -22,7 +22,7 @@
   <UserCodeAssemblies></UserCodeAssemblies>
   <ExtensionAssemblies>
     <ExtensionAssembly>Microsoft.LightSwitch.SdkProxy, Version=10.0.14.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35</ExtensionAssembly>
-    <ExtensionAssembly>Microsoft.LightSwitch.Extensions.Client, Version=14.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35</ExtensionAssembly>
     <ExtensionAssembly>Microsoft.LightSwitch.Cosmopolitan.Client, Version=14.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35</ExtensionAssembly>
+    <ExtensionAssembly>Microsoft.LightSwitch.Extensions.Client, Version=14.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35</ExtensionAssembly>
   </ExtensionAssemblies>
 </Configuration>
