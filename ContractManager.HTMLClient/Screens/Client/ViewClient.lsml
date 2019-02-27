@@ -466,7 +466,7 @@
                 <ContentItem
                   Name="Description"
                   Kind="Value"
-                  DataType=":String">
+                  DataType=":String?">
                   <ContentItem.Attributes>
                     <DisplayName
                       Value="დასახელება" />

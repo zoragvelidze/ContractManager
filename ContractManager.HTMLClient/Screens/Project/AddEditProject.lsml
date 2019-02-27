@@ -77,19 +77,14 @@
                   </ContentItem>
                 </ContentItem>
                 <ContentItem
-                  Name="ContractNumber"
+                  Name="ProjectDate"
                   Kind="Value"
-                  DataType=":String"
-                  View="Microsoft.LightSwitch.MobileWeb:Text">
-                  <ContentItem.Attributes>
-                    <DisplayName
-                      Value="კონტრაქტის ნომერი" />
-                  </ContentItem.Attributes>
+                  DataType=":Date?">
                   <ContentItem.DataSource>
                     <ScreenExpressionTree>
                       <ChainExpression>
                         <MemberExpression
-                          Member="Project/Properties[ContractNumber]" />
+                          Member="Project/Properties[ProjectDate]" />
                       </ChainExpression>
                     </ScreenExpressionTree>
                   </ContentItem.DataSource>
@@ -173,7 +168,7 @@
                 <ContentItem
                   Name="Description"
                   Kind="Value"
-                  DataType=":String">
+                  DataType=":String?">
                   <ContentItem.Attributes>
                     <DisplayName
                       Value="აღწერა" />
@@ -188,6 +183,24 @@
                   </ContentItem.DataSource>
                 </ContentItem>
                 <ContentItem
+                  Name="ContractNumber"
+                  Kind="Value"
+                  DataType=":String"
+                  View="Microsoft.LightSwitch.MobileWeb:Text">
+                  <ContentItem.Attributes>
+                    <DisplayName
+                      Value="კონტრაქტის ნომერი" />
+                  </ContentItem.Attributes>
+                  <ContentItem.DataSource>
+                    <ScreenExpressionTree>
+                      <ChainExpression>
+                        <MemberExpression
+                          Member="Project/Properties[ContractNumber]" />
+                      </ChainExpression>
+                    </ScreenExpressionTree>
+                  </ContentItem.DataSource>
+                </ContentItem>
+                <ContentItem
                   Name="CaseNumber"
                   Kind="Value"
                   DataType=":String?">
@@ -196,23 +209,6 @@
                       <ChainExpression>
                         <MemberExpression
                           Member="Project/Properties[CaseNumber]" />
-                      </ChainExpression>
-                    </ScreenExpressionTree>
-                  </ContentItem.DataSource>
-                </ContentItem>
-                <ContentItem
-                  Name="Comment"
-                  Kind="Value"
-                  DataType=":String?">
-                  <ContentItem.Attributes>
-                    <DisplayName
-                      Value="კომენტარი" />
-                  </ContentItem.Attributes>
-                  <ContentItem.DataSource>
-                    <ScreenExpressionTree>
-                      <ChainExpression>
-                        <MemberExpression
-                          Member="Project/Properties[Comment]" />
                       </ChainExpression>
                     </ScreenExpressionTree>
                   </ContentItem.DataSource>
@@ -263,6 +259,40 @@
                   </ControlPropertySource>
                 </ContentItem.PropertySources>
               </ContentItem>
+            </ContentItem>
+            <ContentItem
+              Name="Address"
+              Kind="Value"
+              DataType=":String?">
+              <ContentItem.DataSource>
+                <ScreenExpressionTree>
+                  <ChainExpression>
+                    <MemberExpression
+                      Member="AddEditProject/Properties[Project]" />
+                    <MemberExpression
+                      Member="Address" />
+                  </ChainExpression>
+                </ScreenExpressionTree>
+              </ContentItem.DataSource>
+            </ContentItem>
+            <ContentItem
+              Name="Comment"
+              Kind="Value"
+              DataType=":String?">
+              <ContentItem.Attributes>
+                <DisplayName
+                  Value="კომენტარი" />
+              </ContentItem.Attributes>
+              <ContentItem.DataSource>
+                <ScreenExpressionTree>
+                  <ChainExpression>
+                    <MemberExpression
+                      Member="AddEditProject/Properties[Project]" />
+                    <MemberExpression
+                      Member="Comment" />
+                  </ChainExpression>
+                </ScreenExpressionTree>
+              </ContentItem.DataSource>
             </ContentItem>
           </ContentItem>
         </ContentItem>

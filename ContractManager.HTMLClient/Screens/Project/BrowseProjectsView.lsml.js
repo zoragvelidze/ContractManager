@@ -2,9 +2,9 @@
 
 myapp.BrowseProjectsView.rows_postRender = function (element, contentItem) {
     // Write code here.
-    contentItem.dataBind("value.AlertType", function (value) {
-        if (value > 0) {
-            $(element).css("background", "#F5858B");
+    contentItem.dataBind("value.ProjectFinished", function (value) {
+        if (value) {
+            $(element).css("background", "hsla(0,100%,30%,0.3)");
         }
     });
 };
@@ -52,5 +52,13 @@ myapp.BrowseProjectsView.exportExcel_execute = function (screen) {
             invokeSaveAsDialog(blob, reportName);
         }
     )
+
+};
+myapp.BrowseProjectsView.ProjectProjectDescription_postRender = function (element, contentItem) {
+    // Write code here.
+
+};
+myapp.BrowseProjectsView.ProjectsView_selectedItem_Address_postRender = function (element, contentItem) {
+    // Write code here.
 
 };

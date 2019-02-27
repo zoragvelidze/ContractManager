@@ -127,7 +127,7 @@ namespace LightSwitchApplication
 
 
                 var projcetStages = from ProjectStage ps in ProjectStages.Where(x => x.Project.Id == projectId).OrderBy(x => x.CloseDate)
-                                    from CurrencyRate cr in CurrencyRates.Where(x => ps.CloseDate == x.RateDate && ps.Project.Currency.Id == x.Currency.Id)
+                                    from CurrencyRate cr in CurrencyRates.Where(x => ps.CloseDate == x.RateDate && project.Currency.Id == x.Currency.Id)
                                     select new { projectStage = ps, currencyRate = cr.Rate };
 
                 foreach (var proStage in projcetStages)
@@ -159,7 +159,30 @@ namespace LightSwitchApplication
                 }
             }
 
+            updateProjectFinished(project, projectId);
+
             dw.ApplicationData.SaveChanges();
+
+        }
+
+        public void updateProjectFinished(Project project, int projectId)
+        {
+
+            var gelProjcetStages = from ProjectStage ps in ProjectStages.Where(x => x.Project.Id == projectId)
+                                   select ps;
+
+            bool projectFinished = true;
+
+            foreach (var proStage in gelProjcetStages)
+            {
+                if (!proStage.Closed)
+                    projectFinished = false;
+            }
+
+            if (gelProjcetStages.Count() == 0)
+                projectFinished = false;           
+
+            project.ProjectFinished = projectFinished;
 
         }
 
@@ -199,23 +222,35 @@ namespace LightSwitchApplication
 
         partial void Projects_Inserting(Project entity)
         {
-            var lastEntry = Projects.OrderByDescending(mhOder => mhOder.Id).FirstOrDefault();
 
-            string lastNumber="00/2001";
-            if (lastEntry != null)
-                lastNumber = lastEntry.ContractNumber;
+            string numberingYear = "";
 
-            int middle = lastNumber.IndexOf('/');
+            if (entity.ProjectDate.HasValue)
+                numberingYear = entity.ProjectDate.Value.Year.ToString();
+            else
+                numberingYear = DateTime.Today.Year.ToString();
 
-            int lustIntNumber = Int32.Parse(lastNumber.Substring(0, middle));
-            int lustYear  = Int32.Parse(lastNumber.Substring(middle+1, 4));
+            var lastEntry = Projects.Where(e => e.ContractNumber.Contains(numberingYear)).OrderByDescending(mhOder => mhOder.Id).FirstOrDefault();
+            //var lastEntry = Projects.OrderByDescending(mhOder => mhOder.Id).FirstOrDefault();
 
+            string lastNumber="";
             string newNumber = "";
 
-            if (DateTime.Today.Year > lustYear)
-                newNumber = "01/" + DateTime.Today.Year.ToString();
-            else
+            if (lastEntry != null)
+            {
+                lastNumber = lastEntry.ContractNumber;
+
+                int middle = lastNumber.IndexOf('/');
+
+                int lustIntNumber = Int32.Parse(lastNumber.Substring(0, middle));
+                int lustYear = Int32.Parse(lastNumber.Substring(middle + 1, 4));
+
                 newNumber = (lustIntNumber + 1).ToString() + "/" + lustYear;
+            }
+            else
+            {
+                newNumber = "01/" + numberingYear;
+            }
 
             entity.ContractNumber = newNumber;
 
@@ -537,7 +572,10 @@ namespace LightSwitchApplication
 
         private void getCurrencyRates()
         {
-            Common comm = Commons_SingleOrDefault(1);
+
+            var dw = this.Application.CreateDataWorkspace();
+
+            Common comm = dw.ApplicationData.Commons_SingleOrDefault(1);
             if (comm != null && comm.CurrencyDate == DateTime.Today)
                 return;
 
@@ -550,9 +588,7 @@ namespace LightSwitchApplication
                 string url = "http://www.nbg.ge/rss.php?date=" + curDate.ToString("yyyy-MM-dd");
                 XmlReader reader = XmlReader.Create(url);
                 SyndicationFeed feed = SyndicationFeed.Load(reader);
-                reader.Close();
-
-                var dw = this.Application.CreateDataWorkspace();
+                reader.Close();                
 
                 foreach (SyndicationItem item in feed.Items)
                 {
@@ -597,11 +633,11 @@ namespace LightSwitchApplication
                 if (comm == null)
                     comm = dw.ApplicationData.Commons.AddNew();
 
-                comm.CurrencyDate = curDate;
-
-                dw.ApplicationData.SaveChanges();
+                comm.CurrencyDate = curDate;                
 
             }
+
+            dw.ApplicationData.SaveChanges();
 
         }
 

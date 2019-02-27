@@ -77,6 +77,19 @@
                   </ContentItem>
                 </ContentItem>
                 <ContentItem
+                  Name="ProjectDate"
+                  Kind="Value"
+                  DataType=":Date?">
+                  <ContentItem.DataSource>
+                    <ScreenExpressionTree>
+                      <ChainExpression>
+                        <MemberExpression
+                          Member="Project/Properties[ProjectDate]" />
+                      </ChainExpression>
+                    </ScreenExpressionTree>
+                  </ContentItem.DataSource>
+                </ContentItem>
+                <ContentItem
                   Name="ContractNumber"
                   Kind="Value"
                   DataType=":String">
@@ -96,7 +109,7 @@
                 <ContentItem
                   Name="Description"
                   Kind="Value"
-                  DataType=":String">
+                  DataType=":String?">
                   <ContentItem.Attributes>
                     <DisplayName
                       Value="დასახელება" />
@@ -106,6 +119,19 @@
                       <ChainExpression>
                         <MemberExpression
                           Member="Project/Properties[Description]" />
+                      </ChainExpression>
+                    </ScreenExpressionTree>
+                  </ContentItem.DataSource>
+                </ContentItem>
+                <ContentItem
+                  Name="Address"
+                  Kind="Value"
+                  DataType=":String?">
+                  <ContentItem.DataSource>
+                    <ScreenExpressionTree>
+                      <ChainExpression>
+                        <MemberExpression
+                          Member="Project/Properties[Address]" />
                       </ChainExpression>
                     </ScreenExpressionTree>
                   </ContentItem.DataSource>

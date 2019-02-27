@@ -21,18 +21,38 @@
                 NodeType="And">
                 <BinaryExpression.Left>
                   <BinaryExpression
-                    NodeType="Equal">
+                    NodeType="And">
                     <BinaryExpression.Left>
-                      <ChainExpression>
-                        <MemberExpression
-                          Member="Client" />
-                        <MemberExpression
-                          Member="Id" />
-                      </ChainExpression>
+                      <BinaryExpression
+                        NodeType="Equal">
+                        <BinaryExpression.Left>
+                          <ChainExpression>
+                            <MemberExpression
+                              Member="Client" />
+                            <MemberExpression
+                              Member="Id" />
+                          </ChainExpression>
+                        </BinaryExpression.Left>
+                        <BinaryExpression.Right>
+                          <ParameterExpression
+                            Parameter="Clinet" />
+                        </BinaryExpression.Right>
+                      </BinaryExpression>
                     </BinaryExpression.Left>
                     <BinaryExpression.Right>
-                      <ParameterExpression
-                        Parameter="Clinet" />
+                      <BinaryExpression
+                        NodeType="Contains">
+                        <BinaryExpression.Left>
+                          <ChainExpression>
+                            <MemberExpression
+                              Member="ContractNumber" />
+                          </ChainExpression>
+                        </BinaryExpression.Left>
+                        <BinaryExpression.Right>
+                          <ParameterExpression
+                            Parameter="ContractNumber" />
+                        </BinaryExpression.Right>
+                      </BinaryExpression>
                     </BinaryExpression.Right>
                   </BinaryExpression>
                 </BinaryExpression.Left>
@@ -42,12 +62,12 @@
                     <BinaryExpression.Left>
                       <ChainExpression>
                         <MemberExpression
-                          Member="ContractNumber" />
+                          Member="Description" />
                       </ChainExpression>
                     </BinaryExpression.Left>
                     <BinaryExpression.Right>
                       <ParameterExpression
-                        Parameter="ContractNumber" />
+                        Parameter="ProjectDescription" />
                     </BinaryExpression.Right>
                   </BinaryExpression>
                 </BinaryExpression.Right>
@@ -59,12 +79,12 @@
                 <BinaryExpression.Left>
                   <ChainExpression>
                     <MemberExpression
-                      Member="Description" />
+                      Member="Address" />
                   </ChainExpression>
                 </BinaryExpression.Left>
                 <BinaryExpression.Right>
                   <ParameterExpression
-                    Parameter="ProjectDescription" />
+                    Parameter="ProjectAddress" />
                 </BinaryExpression.Right>
               </BinaryExpression>
             </BinaryExpression.Right>
@@ -87,6 +107,10 @@
         ParameterType=":String?" />
       <QueryOperationParameter
         Name="ProjectDescription"
+        IsOptional="True"
+        ParameterType=":String?" />
+      <QueryOperationParameter
+        Name="ProjectAddress"
         IsOptional="True"
         ParameterType=":String?" />
     </QueryOperation>

@@ -93,19 +93,19 @@
                 </ContentItem>
               </ContentItem>
               <ContentItem
-                Name="ProjectProjectDescription"
+                Name="ProjectAddress"
                 Kind="Value"
                 DataType=":String?"
                 View="Microsoft.LightSwitch.MobileWeb:TextBox">
                 <ContentItem.Attributes>
                   <DisplayName
-                    Value="დასახელება" />
+                    Value="მისამართი" />
                 </ContentItem.Attributes>
                 <ContentItem.DataSource>
                   <ScreenExpressionTree>
                     <ChainExpression>
                       <MemberExpression
-                        Member="BrowseProjectsView/Properties[ProjectProjectDescription]" />
+                        Member="BrowseProjectsView/Properties[ProjectAddress]" />
                     </ChainExpression>
                   </ScreenExpressionTree>
                 </ContentItem.DataSource>
@@ -211,33 +211,17 @@
                   </ContentItem.PropertySources>
                 </ContentItem>
                 <ContentItem
-                  Name="Description"
+                  Name="Address"
                   Kind="Value"
-                  DataType=":String">
-                  <ContentItem.Attributes>
-                    <DisplayName
-                      Value="დასახელება" />
-                  </ContentItem.Attributes>
+                  DataType=":String?">
                   <ContentItem.DataSource>
                     <ScreenExpressionTree>
                       <ChainExpression>
                         <MemberExpression
-                          Member="Project/Properties[Description]" />
+                          Member="Project/Properties[Address]" />
                       </ChainExpression>
                     </ScreenExpressionTree>
                   </ContentItem.DataSource>
-                  <ContentItem.PropertySources>
-                    <ControlPropertySource
-                      Property="Microsoft.LightSwitch.MobileWeb:RootControl/Properties[FontStyle]">
-                      <ScreenExpressionTree>
-                        <ChainExpression>
-                          <ConstantExpression
-                            Value="Small"
-                            ResultType=":String" />
-                        </ChainExpression>
-                      </ScreenExpressionTree>
-                    </ControlPropertySource>
-                  </ContentItem.PropertySources>
                 </ContentItem>
                 <ContentItem
                   Name="Currency"
@@ -606,6 +590,13 @@
                     Member="BrowseProjectsView/Properties[ProjectProjectDescription]" />
                 </ChainExpression>
               </ArgumentExpression>
+              <ArgumentExpression
+                Parameter="ProjectAddress">
+                <ChainExpression>
+                  <MemberExpression
+                    Member="BrowseProjectsView/Properties[ProjectAddress]" />
+                </ChainExpression>
+              </ArgumentExpression>
             </CallExpression>
           </ChainExpression>
         </ScreenExpressionTree>
@@ -633,6 +624,9 @@
           <Required />
         </ScreenProperty.Attributes>
       </ScreenProperty>
+      <ScreenProperty
+        Name="ProjectAddress"
+        PropertyType=":String?" />
     </Screen.Properties>
   </Screen>
   <Application.Methods>
